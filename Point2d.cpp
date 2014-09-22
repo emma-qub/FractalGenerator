@@ -10,8 +10,8 @@ Point2d::Point2d(float x, float y) {
 }
 
 Point2d::Point2d(int xMin, int xMax, int yMin, int yMax) {
-  _coords[0] = rand()%(xMax - xMin) + xMin;
-  _coords[1] = rand()%(yMax - yMin) + yMin;
+  _coords[0] = (static_cast<float>(rand())/static_cast<float>(RAND_MAX))*static_cast<float>(xMax - xMin) + static_cast<float>(xMin);
+  _coords[1] = (static_cast<float>(rand())/static_cast<float>(RAND_MAX))*static_cast<float>(yMax - yMin) + static_cast<float>(yMin);
 }
 
 Point2d::Point2d(const Point2d& point2d) {
