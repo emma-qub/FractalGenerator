@@ -1,4 +1,4 @@
-#include <QtWidgets>
+#include <QtGui>
 
 #include "FractalRendererWidget.h"
 
@@ -11,7 +11,7 @@ FractalRendererWidget::FractalRendererWidget(QWidget *parent)
     myPenWidth = 1;
     myPenColor = Qt::blue;
 
-    setFixedSize(1280, 900);
+    setFixedSize(900, 900);
 }
 
 bool FractalRendererWidget::openImage(const QString &fileName)
@@ -54,7 +54,7 @@ void FractalRendererWidget::setPenWidth(int newWidth)
 void FractalRendererWidget::drawPixel(int x, int y, int r, int g, int b, int a) {
   QPainter painter(&image);
   myPenColor = QColor(r, g, b, a);
-  painter.setPen(QPen(myPenColor, 50, Qt::SolidLine, Qt::RoundCap,
+  painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,
                       Qt::RoundJoin));
   painter.drawPoint(x, y);
   modified = true;
