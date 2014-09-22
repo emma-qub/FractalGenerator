@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtWidgets>
+#include <QMainWindow>
 
 #include "FractalRendererWidget.h"
 #include "FractalRendererController.h"
