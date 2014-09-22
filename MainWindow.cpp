@@ -1,8 +1,10 @@
 #include "MainWindow.h"
 
+#include <QAction>
+
 MainWindow::MainWindow(QWidget* parent):
   QMainWindow(parent),
-  _fractalRendererController(3) {
+  _fractalRendererController(1000) {
 
   _fractalRendererWidget = new FractalRendererWidget;
   setCentralWidget(_fractalRendererWidget);
@@ -21,7 +23,8 @@ MainWindow::MainWindow(QWidget* parent):
 void MainWindow::drawNextStep(void) {
   std::vector<Point2d> nextRandomPoints(_fractalRendererController.computeNextStep());
 
-  for (const Point2d& curPoint: nextRandomPoints) {
+  for (unsigned int k = 0; k < nextRandomPoints.size(); ++k) {
+    const Point2d& curPoint = FractalRendererController::homothetie(nextRandomPoints.at(k));
     _fractalRendererWidget->drawPixel(curPoint.getX(), curPoint.getY());
   }
   _fractalRendererWidget->update();

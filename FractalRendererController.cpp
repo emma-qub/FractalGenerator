@@ -3,12 +3,12 @@
 #include <cstdlib> // rand
 #include <cmath> // floor
 
-FractalRendererController::FractalRendererController(unsigned int pointsCount, int xmin, int xmax, int ymin, int ymax):
+FractalRendererController::FractalRendererController(unsigned int pointsCount):
   _pointsCount(pointsCount),
   _randomPoints() {
 
   for (unsigned int k = 0; k < _pointsCount; ++k) {
-    Point2d randomPoint(xmin, xmax, ymin, ymax);
+    Point2d randomPoint(-1, 1, -1, 1);
     _randomPoints.push_back(randomPoint);
     _lastRandomPoints.push_back(randomPoint);
   }
@@ -49,13 +49,10 @@ std::vector<Point2d> FractalRendererController::computeNextStep(void) {
 
   for (unsigned int k = 0; k < _pointsCount; ++k) {
     int choice = std::rand()%3;
-    std::cerr << choice << std::endl;
     Point2d newPoint(applyTransformation(_lastRandomPoints.at(k), choice));
 
     result.push_back(newPoint);
     _randomPoints.push_back(newPoint);
-
-    std::cerr << newPoint << std::endl;
   }
 
   _lastRandomPoints.clear();
@@ -65,10 +62,10 @@ std::vector<Point2d> FractalRendererController::computeNextStep(void) {
 }
 
 Point2d FractalRendererController::applyTransformation(const Point2d& point, int operationChoice) const {
-  int x = point.getX();
-  int y = point.getY();
-  int newX = x/2;
-  int newY = y/2;
+  float x = point.getX();
+  float y = point.getY();
+  float newX = x/2.f;
+  float newY = y/2.f;
 
   if (operationChoice == 1) {
     newX = (x+1)/2;
@@ -77,4 +74,8 @@ Point2d FractalRendererController::applyTransformation(const Point2d& point, int
   }
 
   return Point2d(newX, newY);
+}
+
+Point2d FractalRendererController::homothetie(const Point2d& point, int xmin, int xmax, int ymin, int ymax) {
+  return Point2d((point.getX()+1)*(xmax - xmin)/2, (point.getY()+1)*(ymax - ymin)/2);
 }
